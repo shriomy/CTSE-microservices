@@ -1,0 +1,74 @@
+name: CI/CD to Azure Container Apps
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      RESOURCE_GROUP: microservices-rg
+      ACR_NAME: sliitmicroregistry22000576
+      CONTAINERAPPS_ENVIRONMENT: micro-env
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Log in to Azure Container Registry
+        run: az acr login --name $ACR_NAME
+
+      # Build and push service images
+      - name: Build and push auth-service image
+        run: |
+          docker build -t $ACR_NAME.azurecr.io/auth-service:latest ./auth-service
+          docker push $ACR_NAME.azurecr.io/auth-service:latest
+
+      - name: Build and push order-service image
+        run: |
+          docker build -t $ACR_NAME.azurecr.io/order-service:latest ./order-service
+          docker push $ACR_NAME.azurecr.io/order-service:latest
+
+      - name: Build and push api-gateway image
+        run: |
+          docker build -t $ACR_NAME.azurecr.io/api-gateway:latest ./api-gateway
+          docker push $ACR_NAME.azurecr.io/api-gateway:latest
+
+      # Deploy services to Azure Container Apps
+      - name: Deploy auth-service to Azure Container Apps
+        run: |
+          az containerapp update \
+            --name auth-service \
+            --resource-group $RESOURCE_GROUP \
+            --image $ACR_NAME.azurecr.io/auth-service:latest \
+            --ingress internal \
+            --target-port 8081
+
+      - name: Deploy order-service to Azure Container Apps
+        run: |
+          az containerapp update \
+            --name order-service \
+            --resource-group $RESOURCE_GROUP \
+            --image $ACR_NAME.azurecr.io/order-service:latest \
+            --ingress internal \
+            --target-port 8082
+
+      - name: Deploy api-gateway to Azure Container Apps
+        run: |
+          az containerapp update \
+            --name api-gateway \
+            --resource-group $RESOURCE_GROUP \
+            --image $ACR_NAME.azurecr.io/api-gateway:latest \
+            --ingress external \
+            --target-port 8080
