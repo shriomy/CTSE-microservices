@@ -1,0 +1,40 @@
+# Build and compilation output
+target/
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+
+# Maven
+.mvn/
+maven-wrapper.jar
+maven-wrapper.properties
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Environment variables
+.env
+.env.local
+
+# Dependencies
+.classpath
+.project
+.settings/
+
+# Build
+build/
+dist/
