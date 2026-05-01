@@ -71,7 +71,7 @@ public class GatewayAuthFilter implements GlobalFilter, Ordered {
                     return chain.filter(exchange.mutate().request(mutatedRequest).build());
                 })
                 .onErrorResume(error -> {
-                    log.error("Gateway auth failed for {}: {} - {}", path, error.getClass().getSimpleName(), error.getMessage(), error);
+                    log.warn("Gateway auth failed for {}: {}", path, error.getMessage());
                     return unauthorized(exchange, correlationId, "Authentication service unavailable");
                 });
     }
