@@ -1,0 +1,167 @@
+.payment-cancelled-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f9fafb;
+}
+
+.cancelled-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.cancelled-content {
+  background: white;
+  border-radius: 20px;
+  padding: 60px 40px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f1f5f9;
+}
+
+.cancelled-icon {
+  color: #ef4444;
+  margin-bottom: 24px;
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cancelled-content h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--secondary);
+  margin-bottom: 16px;
+}
+
+.cancelled-message {
+  color: #6b7280;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.order-id {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-radius: 6px;
+  margin-bottom: 32px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.action-buttons button {
+  flex: 1;
+  min-width: 150px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background: var(--secondary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1a365d;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: var(--secondary);
+  border: 2px solid var(--secondary);
+}
+
+.btn-secondary:hover {
+  background: white;
+  border-color: #1a365d;
+}
+
+.help-section {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: left;
+}
+
+.help-section h3 {
+  color: #991b1b;
+  font-weight: 700;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.help-section ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+.help-section li {
+  color: #7f1d1d;
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.help-section li:before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.help-text {
+  color: #7f1d1d;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .cancelled-content {
+    padding: 40px 24px;
+  }
+
+  .cancelled-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+}
